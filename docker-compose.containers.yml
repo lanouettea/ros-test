@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  ros-foxy-talker:
+    build:
+      context: ./ros/
+    command: ["ros2", "run", "demo_nodes_py", "talker"]
+    networks:
+      - ros-test-net
+
+  ros-foxy-listener:
+    build:
+      context: ./ros/
+    command: ["ros2", "run", "demo_nodes_py", "listener"]
+    networks:
+      - ros-test-net
+
+networks:
+  ros-test-net:
+    driver: bridge
