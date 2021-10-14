@@ -1,0 +1,39 @@
+version: '3.2'
+
+services:
+  ros-foxy-talker:
+    build:
+      context: ./ros/
+    command: ["ros2", "run", "demo_nodes_py", "talker"]
+    volumes:
+      - type: bind
+        source: ./DEFAULT_FASTRTPS_PROFILES.xml
+        target: /root/.ros/DEFAULT_FASTRTPS_PROFILES.xml
+        read_only: true
+    networks:
+      - ros-test-net
+    # environment:
+      # FASTRTPS_DEFAULT_PROFILES_FILE: /root/.ros/DEFAULT_FASTRTPS_PROFILES.xml
+    ports:
+      - "7414:7414/udp"
+      - "7415:7415/udp"
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+
+  ros-foxy-listener:
+    build:
+      context: ./ros/
+    command: ["ros2", "run", "demo_nodes_py", "listener"]
+    volumes:
+      - type: bind
+        source: ./DEFAULT_FASTRTPS_PROFILES.xml
+        target: /root/.ros/DEFAULT_FASTRTPS_PROFILES.xml
+        read_only: true
+    networks:
+      - ros-test-net
+    # environment:
+      # FASTRTPS_DEFAULT_PROFILES_FILE: /root/.ros/DEFAULT_FASTRTPS_PROFILES.xml
+
+networks:
+  ros-test-net:
+    driver: bridge
