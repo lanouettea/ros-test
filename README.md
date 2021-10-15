@@ -44,7 +44,9 @@ You should see the sequential messages being published by the `ros-foxy-talker_1
 ## Container <-> Host, using Cyclone DDS
 In this test, one of the RoS node is ran on the Docker host directly, while the other is ran inside a Docker container. 
 
-Run the following command in a terminal:
+Edit the script `test-container-host_cyclone_.sh` and set the value of the `HOST_IP` variable to the IP of your Docker host.
+
+Then, run the following command in a terminal:
 
 ```
 ./test-container-host_cyclone_.sh
